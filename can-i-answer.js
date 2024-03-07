@@ -10,6 +10,7 @@ export const palavrasFutebol = {
   "sabe", "me", "dizer", "o", "que", "futebol"
   ],
   matched: 0,
+  keywords: ["futebol"]
 }
 
 // Quais as regras do futebol?
@@ -22,6 +23,7 @@ export const palavrasRegras = {
   "como", "funciona", "o", "futebol"
   ],
   matched: 0,
+  keywords: ["quais", "regras"]
 }
 
 // Que time ele mais gosta?
@@ -35,6 +37,7 @@ export const palavrasTimeGosta = {
   "time", "você",
   ],
   matched: 0,
+  keywords: ["time", "torce", "favorito", "preferido"]
 }
 
 // Palmeiras tem mundial?
@@ -47,6 +50,7 @@ export const palavrasMundialPalmeiras = {
   "campeão", "mundial"
   ],
   matched: 0,
+  keywords: ["palmeiras", "mundial"]
 }
 
 export const palavrasPapoFurado = {
@@ -55,6 +59,7 @@ export const palavrasPapoFurado = {
       "escola", "sair",
   ],
   matched: 0,
+  keywords: ["basquete", "escola", "festa"]
 }
 
 export const comoDarUmaBicicleta = {
@@ -63,6 +68,7 @@ export const comoDarUmaBicicleta = {
       "como", "dar", "jeito"
   ],
   matched: 0,
+  keywords: ["como", "bicicleta"]
 }
 
 function showAnswer(index) {
@@ -83,9 +89,9 @@ function showAnswer(index) {
 }
 
 export function mostProbablyQuestion(pergunta) {
-  if (pergunta.includes("basquete")) {
-      return "não falo de basquete"
-  }
+  // if (pergunta.includes("basquete")) {
+  //     return "não falo de basquete"
+  // }
   let matches = [
       palavrasFutebol.matched, 
       palavrasRegras.matched, 
@@ -94,9 +100,16 @@ export function mostProbablyQuestion(pergunta) {
       comoDarUmaBicicleta.matched,
       palavrasPapoFurado.matched,
   ]
-  console.log(matches)
-  console.log(Math.max(...matches))
-  console.log(matches.indexOf(Math.max(...matches)))
-  // Vê quantas palavras de cada pergunta foi usada
+
+  
+
+  console.log(">> matches", matches)
+
+  // Se nenhum dos bancos for tensionado com o valor 3, a pergunta é considerada como "papo furado"
+  // Ou seja, o mínimo para que uma pergunta seja tensionada a um banco é 4
+  if(Math.max(...matches) <= 3) {
+    return showAnswer(undefined)
+  }
+
   return showAnswer(matches.indexOf(Math.max(...matches)))
 }
